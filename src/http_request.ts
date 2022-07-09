@@ -1,6 +1,6 @@
 import https from "https";
 
-const httpRequest = (params: https.RequestOptions) => {
+const httpRequest = <T>(params: https.RequestOptions): Promise<T> => {
   return new Promise(function (resolve, reject) {
     const req = https.request(params, function (res) {
       // reject on bad status
