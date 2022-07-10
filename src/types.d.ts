@@ -22,8 +22,9 @@ export type WindowsTerminalThemeType = {
   selectionBackground?: string;
 };
 
-export type WindowsTerminalThemeWithMetaType = WindowsTerminalThemeType &
-  ThemeMeta;
+export type WindowsTerminalThemeWithMetaType = WindowsTerminalThemeType & {
+  meta: ThemeMeta;
+};
 
 type CreditSource = {
   name: string;
@@ -36,7 +37,7 @@ export type CreditType = {
   notes?: string;
 };
 
-type ThemeMeta = { isDark: boolean; credits?: creditType[] };
+type ThemeMeta = { isDark: boolean; credits: creditType[] | null };
 
 export type GithubDirResponseType = {
   name: string;

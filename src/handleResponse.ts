@@ -8,7 +8,7 @@ type PropTypes = [
   manualCredits: CreditType[]
 ];
 
-const getUniqueThemes = (
+export const getUniqueThemes = (
   itermThemes: WindowsTerminalThemeType[],
   customThemes: WindowsTerminalThemeType[]
 ) => [
@@ -21,7 +21,7 @@ const getUniqueThemes = (
   ),
 ];
 
-const setThemesWithMeta = (
+export const setThemesWithMeta = (
   themes: WindowsTerminalThemeType[],
   credits: CreditType[]
 ) => {
@@ -39,10 +39,40 @@ const setThemesWithMeta = (
   });
 };
 
+const necessaryKeys = [
+  "name",
+  "black",
+  "red",
+  "green",
+  "yellow",
+  "blue",
+  "purple",
+  "cyan",
+  "white",
+  "brightBlack",
+  "brightRed",
+  "brightGreen",
+  "brightYellow",
+  "brightBlue",
+  "brightPurple",
+  "brightCyan",
+  "brightWhite",
+  "background",
+  "foreground",
+];
+
+export const getValidThemes = (themes: WindowsTerminalThemeType[]) =>
+  themes.filter((theme) => {
+    const themeKeys = Object.keys(theme);
+    return necessaryKeys.every((key) => themeKeys.includes(key));
+  });
+
 const handleResponse = (props: PropTypes) => {
-  const uniqueThemes = getUniqueThemes(props[0], props[1]);
+  const uniqueAndValidThemes = getValidThemes(
+    getUniqueThemes(props[0], props[1])
+  );
   const mergedCredits = [...props[2], ...props[3]];
-  const themesWithMeta = setThemesWithMeta(uniqueThemes, mergedCredits);
+  const themesWithMeta = setThemesWithMeta(uniqueAndValidThemes, mergedCredits);
   return themesWithMeta.sort((a, b) =>
     a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1
   );
