@@ -21,13 +21,13 @@ const test = async () => {
   }
 };
 
-// test();
-
 exports.handler = async (event: APIGatewayProxyEvent) => {
+  const content = await test();
   // TODO implement
   const response = {
     statusCode: 200,
-    body: JSON.stringify("Hello from Lambda!"),
+    body: JSON.stringify(content),
   };
+
   return response;
 };
