@@ -1,4 +1,4 @@
 node_modules
 build
 .terraform
-lambda_function.zip
+*.zip

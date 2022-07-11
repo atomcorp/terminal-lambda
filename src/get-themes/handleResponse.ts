@@ -1,4 +1,4 @@
-import { CreditType, WindowsTerminalThemeType } from "./types";
+import { CreditType, WindowsTerminalThemeType } from "../types";
 import { getIsDark } from "./utils/utils";
 
 type PropTypes = [

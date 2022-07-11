@@ -11,7 +11,7 @@ import {
   WindowsTerminalThemeType,
   GithubDirResponseType,
   CreditType,
-} from "./types";
+} from "../types";
 
 const itermFileNamesRequestParams = getParams(ITERM_TERMINAL_THEMES_PATH);
 const customThemesParams = getParams(CUSTOM_THEMES_PATH);

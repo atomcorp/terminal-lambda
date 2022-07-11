@@ -1,6 +1,6 @@
 // Load the SDK for JavaScript
 import AWS from "aws-sdk";
-import { WindowsTerminalThemeWithMetaType } from "../types";
+import { WindowsTerminalThemeWithMetaType } from "../../types";
 
 AWS.config.update({ region: "eu-west-2" });
 

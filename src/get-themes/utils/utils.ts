@@ -1,4 +1,4 @@
-import { RgbType } from "../types";
+import { RgbType } from "../../types";
 
 const GITHUB_HOST = "api.github.com";
 
