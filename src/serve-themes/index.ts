@@ -1,23 +1,26 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import AWS from "aws-sdk";
+const AWS = require("aws-sdk");
 
-AWS.config.update({ region: "eu-west-2" });
+const s3 = new AWS.S3();
+
+async function getObject(bucket: string, objectKey: string) {
+  try {
+    const params = {
+      Bucket: bucket,
+      Key: objectKey,
+    };
+
+    const data = await s3.getObject(params).promise();
+
+    return data.Body.toString("utf-8");
+  } catch (e) {
+    throw new Error(`Could not retrieve file from S3: ${e.message}`);
+  }
+}
+
+// To retrieve you need to use `await getObject()` or `getObject().then()`
 
 exports.handler = async (event: APIGatewayProxyEvent) => {
-  const s3 = new AWS.S3();
-  const params = {
-    Bucket: "themesjson",
-    Key: "themes.json",
-  };
-  s3.getObject(params, (err, data) => {
-    if (err) {
-      console.log(err, err.stack);
-    } else {
-      console.log(data);
-    }
-  });
-  return {
-    status: 200,
-    message: JSON.stringify("Hello world"),
-  };
+  const res = await getObject("themesjson", "themes.json");
+  return JSON.parse(res);
 };
