@@ -18,31 +18,30 @@ const customThemesParams = getParams(CUSTOM_THEMES_PATH);
 const generatedCreditsRequestParams = getParams(GENERATED_CREDITS_PATH);
 const manualCreditsRequestParams = getParams(MANUAL_CREDITS_PATH);
 
-const getItermThemeFiles = async (fileNames: string[]) =>
-  await Promise.all(
-    fileNames
-      .slice(0, 5)
-      .map((fileName, i) =>
-        httpRequest<WindowsTerminalThemeType>(
-          getParams(`${ITERM_TERMINAL_THEMES_PATH}/${encodeURI(fileName)}`)
+const requests = (githubToken: string) => {
+  const httpRequestWithToken = httpRequest(githubToken);
+  return Promise.all([
+    httpRequestWithToken<GithubDirResponseType[]>(
+      itermFileNamesRequestParams
+    ).then(
+      async (response) =>
+        await Promise.all(
+          response
+            .map((itermDirFile) => itermDirFile.name)
+            .slice(0, 5)
+            .map((fileName, i) =>
+              httpRequestWithToken<WindowsTerminalThemeType>(
+                getParams(
+                  `${ITERM_TERMINAL_THEMES_PATH}/${encodeURI(fileName)}`
+                )
+              )
+            )
         )
-      )
-  );
-
-const getItermThemesHttpRequest = () =>
-  httpRequest<GithubDirResponseType[]>(itermFileNamesRequestParams).then(
-    async (response) =>
-      await getItermThemeFiles(
-        response.map((itermDirFile) => itermDirFile.name)
-      )
-  );
-
-const requests = () =>
-  Promise.all([
-    getItermThemesHttpRequest(),
-    httpRequest<WindowsTerminalThemeType[]>(customThemesParams),
-    httpRequest<CreditType[]>(generatedCreditsRequestParams),
-    httpRequest<CreditType[]>(manualCreditsRequestParams),
+    ),
+    httpRequestWithToken<WindowsTerminalThemeType[]>(customThemesParams),
+    httpRequestWithToken<CreditType[]>(generatedCreditsRequestParams),
+    httpRequestWithToken<CreditType[]>(manualCreditsRequestParams),
   ]);
+};
 
 export default requests;

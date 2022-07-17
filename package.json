@@ -2,7 +2,7 @@
   "name": "terminal-lambda",
   "version": "1.0.0",
   "description": "",
-  "main": "build/lambda_function.js",
+  "main": "build/get-themes/index.js",
   "scripts": {
     "test": "jest",
     "start": "tsc-watch --onSuccess \"node .\"",

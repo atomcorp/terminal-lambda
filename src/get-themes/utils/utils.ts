@@ -13,17 +13,11 @@ export const MANUAL_CREDITS_PATH =
   "/repos/atomcorp/themes/contents/credits/manual-credits.json";
 
 const btoa = (str: string) => Buffer.from(str, "binary").toString("base64");
-const headers = {
-  "User-Agent": "Windows Terminal Themes",
-  Authorization: `Basic ${btoa(`atomcorp:${process.env.GITHUB_TOKEN}`)}`,
-  Accept: "application/vnd.github.v3.raw",
-};
 
 export const getParams = (path: string) => ({
   hostname: GITHUB_HOST,
   path,
   method: "GET",
-  headers,
   port: 443,
 });
 

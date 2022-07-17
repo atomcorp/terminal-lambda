@@ -14,7 +14,9 @@ async function getObject(bucket: string, objectKey: string) {
 
     return data.Body.toString("utf-8");
   } catch (e) {
-    throw new Error(`Could not retrieve file from S3: ${e.message}`);
+    if (e instanceof Error) {
+      throw new Error(`Could not retrieve file from S3: ${e.message}`);
+    }
   }
 }
 
