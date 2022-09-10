@@ -28,7 +28,6 @@ const requests = (githubToken: string) => {
         await Promise.all(
           response
             .map((itermDirFile) => itermDirFile.name)
-            .slice(0, 5)
             .map((fileName, i) =>
               httpRequestWithToken<WindowsTerminalThemeType>(
                 getParams(

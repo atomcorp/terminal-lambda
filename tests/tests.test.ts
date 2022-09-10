@@ -1,9 +1,9 @@
-import { getIsDark } from "../src/utils/utils";
+import { getIsDark } from "../src/get-themes/utils/utils";
 import {
   setThemesWithMeta,
   getValidThemes,
   getUniqueThemes,
-} from "../src/handleResponse";
+} from "../src/get-themes/handleResponse";
 import themes from "./themes-with-meta.json";
 import {
   WindowsTerminalThemeType,
