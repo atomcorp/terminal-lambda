@@ -19,6 +19,7 @@ resource "aws_lambda_function" "get_themes" {
   handler          = "index.handler"
   source_code_hash = data.archive_file.get_lambda_zip.output_base64sha256
   runtime          = "nodejs16.x"
+  timeout          = 30
 }
 
 data "archive_file" "serve_lambda_zip" {
